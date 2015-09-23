@@ -1,1 +1,80 @@
 /* your css code goes here */
+.container {
+  margin: 1em 1em;
+}
+
+.navbar {
+  background-color: darkgrey;
+  width: 100%;
+  height: 3em;
+}
+
+.dropdowns {
+  margin: 1em 0 0 1em;
+  width: 10em;
+  font-size: 18px;
+}
+
+/*  SECTIONS  */
+.section {
+  //clear: both;
+  padding: 0px;
+  margin: 0px;
+}
+
+/*  COLUMN SETUP  */
+.col {
+  display: block;
+  float:left;
+  //margin: 1% 0 1% 0.4%;
+  margin:0 0;
+}
+.col:first-child { margin-left: 0; }
+
+/*  GROUPING  */
+.group:before,
+.group:after { content:""; display:table; }
+.group:after { clear:both;}
+.group { zoom:1; /* For IE 6/7 */ }
+/*  GRID OF SEVEN  */
+.span_7_of_7 {
+  width: 100%;
+}
+
+.span_6_of_7 {
+    width: 85.65%;
+}
+
+.span_5_of_7 {
+    width: 71.31%;
+}
+
+.span_4_of_7 {
+    width: 56.97%;
+}
+
+.span_3_of_7 {
+    width: 42.62%;
+}
+
+.span_2_of_7 {
+    width: 28.28%;
+}
+
+.span_1_of_7 {
+    width: 13.94%;
+    border: solid black;
+    border-width: 1px;
+    height: 150px;
+}
+
+.shade {
+  background-color: lightgray;
+}
+
+
+/*  GO FULL WIDTH BELOW 480 PIXELS */
+@media only screen and (max-width: 480px) {
+  .col {  margin: 1% 0 1% 0%; }
+  .span_1_of_7, .span_2_of_7, .span_3_of_7, .span_4_of_7, .span_5_of_7, .span_6_of_7, .span_7_of_7 { width: 100%; }
+}
