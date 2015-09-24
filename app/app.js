@@ -62,7 +62,11 @@ angular.module('calendarDemoApp',[])
       link: function(scope,element,attrs){
 
         var prep = {}, range = {};
+        var daysInWeek = 7;
         //scope.displayDate = new Date(scope.currentYr, scope.monthNum, 1, 0, 0, 0, 0);
+
+        // Initialize ready flag
+        scope.calendarReady = false;
 
         scope.$watchCollection(function () {
           debug("watch triggered");
@@ -70,21 +74,31 @@ angular.module('calendarDemoApp',[])
         }, function() {
           debug("DISPLAYING currentYr currentMon = " + dateSelection.year + " " + dateSelection.monthNum);
 
-          scope.displayDate = new Date('2015', '8', 1, 0, 0, 0, 0);
-          debug("DISPLAY date HARDCODED = " + scope.displayDate);
           scope.displayDate = new Date(dateSelection.year, dateSelection.monthNum, 1, 0, 0, 0, 0);
-          //scope.displayDate = new Date(2015, 8, 1, 0, 0, 0, 0);
           debug("DISPLAY date = " + scope.displayDate);
           prep = CalendarRange.prepareDate(scope.displayDate);
-          range = CalendarRange.getMonthlyRange(prep.date);
-          console.log("first = " + range.first);
-          scope.day0 = range.first.getDate();
-          if (range.first.getMonth() != scope.monthNum ) {
-            scope.shade = 'shade';
-            console.log("shading....");
-          }
-        });
+          scope.range = CalendarRange.getMonthlyRange(prep.date);
+          console.log("first = " + scope.range.first);
 
+          //empty rows array and re-create rows needed for calendar
+          scope.rows = [];
+          for (var i = 0; i < Math.round(scope.range.days.length / daysInWeek); i++) {
+              scope.rows[i] = scope.range.days.slice(i*daysInWeek, i*daysInWeek+daysInWeek);
+              for (var j = 0; j < scope.rows[i].length; j++) {
+                debug("getMonth = " + scope.rows[i][j].date.getMonth());
+                if (scope.rows[i][j].date.getMonth() != dateSelection.monthNum ) {
+                  scope.rows[i][j].shade = 'shade';
+                }
+              }
+          }
+
+          //scope.rows = [1,2,3,4,5];
+          //if (scope.range.first.getMonth() != scope.monthNum ) {
+            //scope.shade = 'shade';
+            //console.log("shading....");
+          //}
+        });
+        scope.calendarReady = true;
       },
       templateUrl: 'calendar.html'
     };

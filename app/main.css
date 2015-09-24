@@ -1,10 +1,10 @@
 /* your css code goes here */
 .container {
-  margin: 1em 1em;
+  margin: 1em 2em;
 }
 
 .navbar {
-  background-color: darkgrey;
+  background-color: #F08080;
   width: 100%;
   height: 3em;
 }
@@ -24,7 +24,8 @@
 
 /*  COLUMN SETUP  */
 .col {
-  display: block;
+  //display: block;
+  display: inline-block;
   float:left;
   //margin: 1% 0 1% 0.4%;
   margin:0 0;
@@ -37,7 +38,7 @@
 .group:after { clear:both;}
 .group { zoom:1; /* For IE 6/7 */ }
 /*  GRID OF SEVEN  */
-.span_7_of_7 {
+/* .span_7_of_7 {
   width: 100%;
 }
 
@@ -59,13 +60,22 @@
 
 .span_2_of_7 {
     width: 28.28%;
-}
+} */
 
 .span_1_of_7 {
     width: 13.94%;
     border: solid black;
     border-width: 1px;
     height: 150px;
+}
+
+.title_1_of_7 {
+  width: 13.94%;
+    border: solid black;
+    border-width: 1px;
+    height: 20px;
+    text-align: center;
+    font-weight: bold;
 }
 
 .shade {
