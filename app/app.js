@@ -5,8 +5,8 @@ var debug = function(msg) {
   }
 };
 
-
-
+// Holds the user selected Month (num) and Year
+// Also, the collection to watch for user changes
 var dateSelection = {
       monthNum: 99,
       year: 99
@@ -18,22 +18,28 @@ angular.module('calendarDemoApp',[])
                   'July', 'August', 'September',
                   'October', 'Novemeber', 'December'])
   .controller('calendarCtrl', function($scope, MONTHS) {
+
+      // function called when user changes year
       $scope.updateYr = function(year) {
         dateSelection.year = year;
         debug("======user entered yr = " + dateSelection.year);
       };
+      // function called when user changes month
       $scope.updateMon = function(month) {
         dateSelection.monthNum = MONTHS.indexOf(month);
         debug("======user entered mon = " + dateSelection.month);
       };
   })
 
+  // Directive to set up the month drop-down menu
   .directive('monthDrop',function(MONTHS){
 
     return {
 
       link: function(scope,element,attrs){
         scope.months = MONTHS;
+
+        // get current month and save
         dateSelection.monthNum = new Date().getMonth();
         scope.currentMon = scope.months[dateSelection.monthNum];
 
@@ -43,12 +49,18 @@ angular.module('calendarDemoApp',[])
       templateUrl: 'month-dropdown.html'
     };
   })
+
+  // Directive to set up the year drop-down menu
   .directive('yearDrop',function(){
 
     return {
       link: function(scope,element,attrs){
         scope.years = [];
+
+        // get current year and save
         dateSelection.year = new Date().getFullYear();
+
+        // display up to 'offset' years in the past, and 'range' years in the future
         for (var i = +attrs.offset; i < +attrs.range + 1; i++){
             scope.years.push(dateSelection.year + i);
         }
@@ -58,39 +70,45 @@ angular.module('calendarDemoApp',[])
       templateUrl: 'year-dropdown.html'
     };
   })
-  .directive('calendarRow',function(){
+
+  // Directive to display calendar days
+  .directive('calendarDisplay',function(){
 
     return {
       link: function(scope,element,attrs){
 
         var prep = {}, range = {};
-        var daysInWeek = 7;
-        //scope.displayDate = new Date(scope.currentYr, scope.monthNum, 1, 0, 0, 0, 0);
+        var startDate;
 
         // Initialize ready flag
         scope.calendarReady = false;
 
+        // watch dateSelection object for changes from user to month and year
         scope.$watchCollection(function () {
           debug("watch triggered");
           return dateSelection;
         }, function() {
-          debug("DISPLAYING currentYr currentMon = " + dateSelection.year + " " + dateSelection.monthNum);
 
+          // set current month (num)
           scope.currentMonNum = dateSelection.monthNum;
-          debug("currentMonNum = " + scope.currentMonNum);
-          scope.displayDate = new Date(dateSelection.year, dateSelection.monthNum, 1, 0, 0, 0, 0);
-          debug("DISPLAY date = " + scope.displayDate);
-          prep = CalendarRange.prepareDate(scope.displayDate);
+
+          // retrieve day 1 of selected month and year
+          startDate = new Date(dateSelection.year, dateSelection.monthNum, 1);
+
+          // get the range of days to be displayed on calendar
+          prep = CalendarRange.prepareDate(startDate);
           scope.range = CalendarRange.getMonthlyRange(prep.date);
-          console.log("first = " + scope.range.first);
+
+          debug("DISPLAYING currentYr currentMon = " + dateSelection.year + " " + dateSelection.monthNum);
+          debug("currentMonNum = " + scope.currentMonNum);
+          debug("START date = " + startDate);
 
         });
+
+        // set ready flag for ng-show
         scope.calendarReady = true;
       },
       templateUrl: 'calendar.html'
     };
   });
 
-function GetValue() {
-
-}
