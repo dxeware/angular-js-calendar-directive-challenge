@@ -1,26 +1,10 @@
-<div ng-show="calendarReady" class="section group">
-  <div class="col title_1_of_7">
-    Sunday
-  </div>
-  <div class="col title_1_of_7">
-    Monday
-  </div>
-  <div class="col title_1_of_7">
-    Tuesday
-  </div>
-  <div class="col title_1_of_7">
-    Wednesday
-  </div>
-  <div class="col title_1_of_7">
-    Thursday
-  </div>
-  <div class="col title_1_of_7">
-    Friday
-  </div>
-  <div class="col title_1_of_7">
-    Saturday
+<!-- Heading for calendar with days of week -->
+<div ng-init="daysOfWeek=['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']" ng-show="calendarReady" class="section group">
+  <div ng-repeat="days in daysOfWeek" class="col title_1_of_7">
+    {{days}}
   </div>
 </div>
+<!-- Display calendar days -->
 <div ng-show="calendarReady" nclass="section group">
   <div class="col span_1_of_7" ng-class="day.month != currentMonNum ? 'shade' : 'no-shade'" ng-repeat="day in range.days" >
     {{day.day}}
