@@ -36,7 +36,9 @@ angular.module('calendarDemoApp',[])
         scope.months = MONTHS;
         dateSelection.monthNum = new Date().getMonth();
         scope.currentMon = scope.months[dateSelection.monthNum];
+
         debug("currentMon = " + scope.currentMon);
+
       },
       templateUrl: 'month-dropdown.html'
     };
@@ -74,29 +76,14 @@ angular.module('calendarDemoApp',[])
         }, function() {
           debug("DISPLAYING currentYr currentMon = " + dateSelection.year + " " + dateSelection.monthNum);
 
+          scope.currentMonNum = dateSelection.monthNum;
+          debug("currentMonNum = " + scope.currentMonNum);
           scope.displayDate = new Date(dateSelection.year, dateSelection.monthNum, 1, 0, 0, 0, 0);
           debug("DISPLAY date = " + scope.displayDate);
           prep = CalendarRange.prepareDate(scope.displayDate);
           scope.range = CalendarRange.getMonthlyRange(prep.date);
           console.log("first = " + scope.range.first);
 
-          //empty rows array and re-create rows needed for calendar
-          scope.rows = [];
-          for (var i = 0; i < Math.round(scope.range.days.length / daysInWeek); i++) {
-              scope.rows[i] = scope.range.days.slice(i*daysInWeek, i*daysInWeek+daysInWeek);
-              for (var j = 0; j < scope.rows[i].length; j++) {
-                debug("getMonth = " + scope.rows[i][j].date.getMonth());
-                if (scope.rows[i][j].date.getMonth() != dateSelection.monthNum ) {
-                  scope.rows[i][j].shade = 'shade';
-                }
-              }
-          }
-
-          //scope.rows = [1,2,3,4,5];
-          //if (scope.range.first.getMonth() != scope.monthNum ) {
-            //scope.shade = 'shade';
-            //console.log("shading....");
-          //}
         });
         scope.calendarReady = true;
       },
