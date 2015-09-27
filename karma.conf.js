@@ -20,7 +20,7 @@ module.exports = function(config) {
       './app/**/*Spec.js',
       './app/*.js',
       './app/**/*.js',
-      './app/month-dropdown.html'
+      './app/*.html'
     ],
 
 
