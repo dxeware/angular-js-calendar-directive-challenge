@@ -1,11 +1,11 @@
 <!-- Heading for calendar with days of week -->
-<div ng-init="daysOfWeek=['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']" ng-show="calendarReady" class="section group">
-  <div ng-repeat="days in daysOfWeek" class="col title_1_of_7">
+<div ng-init="daysOfWeek=['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']" ng-show="calendarReady">
+  <div ng-repeat="days in daysOfWeek" class="col title_1_of_7 xyz">
     {{days}}
   </div>
 </div>
 <!-- Display calendar days -->
-<div ng-show="calendarReady" nclass="section group">
+<div ng-show="calendarReady">
   <div class="col span_1_of_7" ng-class="day.month != currentMonNum ? 'shade' : 'no-shade'" ng-repeat="day in range.days" >
     {{day.day}}
   </div>

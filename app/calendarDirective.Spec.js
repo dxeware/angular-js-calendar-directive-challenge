@@ -9,6 +9,13 @@ describe('monthDrop', function() {
 
     beforeEach(module("calendarDemoApp"));
     beforeEach(module('month-dropdown.html'));
+
+    beforeEach(inject(function(){
+      console.log("===========================");
+      console.log("=====Month Dropdown=====");
+      console.log("===========================");
+    }));
+
     beforeEach(inject(function($rootScope, $compile) {
 
         var html = "<span month-drop>";
@@ -19,7 +26,7 @@ describe('monthDrop', function() {
         scope.$digest();
 
     }));
-    it('should render the element correctly', function(){
+    it('should render the month dropdown correctly', function(){
 
         var month;
         var offset = -1;
@@ -55,6 +62,13 @@ describe('yearDrop', function() {
 
     beforeEach(module("calendarDemoApp"));
     beforeEach(module('year-dropdown.html'));
+
+    beforeEach(inject(function(){
+      console.log("===========================");
+      console.log("=====Year Dropdown=====");
+      console.log("===========================");
+    }));
+
     beforeEach(inject(function($rootScope, $compile) {
 
         var html = '<span year-drop offset="-20" range="20">';
@@ -65,14 +79,12 @@ describe('yearDrop', function() {
         scope.$digest();
 
     }));
-    it('should render the element correctly', function(){
+    it('should render the year dropdown correctly', function(){
 
         var year = new Date().getFullYear();
         var offset=-20, range=20;
 
         console.log(element.find('select'));
-
-        //console.log(element.find('span').attr('offset'));
 
         // Check current year is in middle of option array
         expect(element.find('option').eq(20).attr('label')).toBe(year.toString());
@@ -90,6 +102,38 @@ describe('yearDrop', function() {
                 continue;
             expect(element.find('option').eq(i).attr('selected')).toBeUndefined();
         }
+
+    });
+});
+
+describe('calendarDisplay', function() {
+
+    var scope,
+        element,
+        compiled,
+        html;
+
+    beforeEach(module("calendarDemoApp"));
+    beforeEach(module('calendar.html'));
+
+    beforeEach(inject(function(){
+      console.log("===========================");
+      console.log("=====Calendar Display=====");
+      console.log("===========================");
+    }));
+    beforeEach(inject(function($rootScope, $compile) {
+
+        var html = '<div calendar-display><div>';
+
+        scope = $rootScope.$new();
+        compiled = $compile(html);
+        element = compiled(scope);
+        scope.$digest();
+
+    }));
+    it('should render the calendar correctly', function(){
+
+        console.log(element.find('div'));
 
     });
 });
